@@ -18,6 +18,7 @@
 #include "indexbuffer.h"
 #include "basemodel.h"
 #include "tank.h"
+#include "../CGVStudio/CGVStudio/Player.h"
 
 class Application
 {
@@ -38,6 +39,7 @@ protected:
     Tank* pTank;
     Model* pTankTop;
     Model* pTankBot;
+    Player* player;
     float fb, lr;
     double mx, my;
 };
