@@ -88,6 +88,12 @@
     <ClCompile Include="..\..\src\Texture.cpp">
       <Filter>Quelldateien\utils</Filter>
     </ClCompile>
+    <ClCompile Include="GameField.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -154,6 +160,12 @@
       <Filter>Quelldateien</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Tank.h">
+      <Filter>Quelldateien</Filter>
+    </ClInclude>
+    <ClInclude Include="GameField.h">
+      <Filter>Quelldateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
       <Filter>Quelldateien</Filter>
     </ClInclude>
   </ItemGroup>

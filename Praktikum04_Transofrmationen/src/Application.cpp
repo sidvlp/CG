@@ -33,14 +33,122 @@
 #define ASSET_DIRECTORY "../assets/"
 #endif
 
-
+  /*  pPhongShader = new PhongShader();
+    pPhongShader->diffuseColor(Color(1.0f, 0.0f, 0.0f));*/
+    //  pPhongShader->diffuseTexture(Texture::LoadShared(ASSET_DIRECTORY "border.jpg"));
 Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin), fb(0), lr(0), mx(0),my(0)
 {
     BaseModel* pModel;
     ConstantShader* pConstShader;
     PhongShader* pPhongShader;
+    Matrix translation, rotationY, rotationX, rotationZ, ursprung;
+   /* pModel = new LinePlaneModel(10, 10, 10, 10);
+    pConstShader = new ConstantShader();
+    pConstShader->color(Color(1, 1, 1));
+    pModel->shader(pConstShader, true);
+    Models.push_back(pModel);*/
+    pConstShader = new ConstantShader();
+    pConstShader->color(Color(0,0,1));
+
+    pModel = new TriangleBoxModel(1, 1, 1);
+    pModel->shader(pConstShader, true);
+    translation.translation(0, 0, -4.5);
+    pModel->transform(pModel->transform() * translation);
+    Models.push_back(pModel);
+
+    pModel = new TriangleBoxModel(1, 1, 1);
+    pModel->shader(pConstShader, true);
+    translation.translation(0, 0, -3.5);
+    pModel->transform(pModel->transform() * translation);
+    Models.push_back(pModel);
+
+    pModel = new TriangleBoxModel(1, 1, 1);
+    pModel->shader(pConstShader, true);
+    translation.translation(0, 0, -2.5);
+    pModel->transform(pModel->transform() * translation);
+    Models.push_back(pModel);
+
+    pModel = new TriangleBoxModel(1, 1, 1);
+    pModel->shader(pConstShader, true);
+    translation.translation(0, 0, -1.5);
+    pModel->transform(pModel->transform() * translation);
+    Models.push_back(pModel);
+
+    pModel = new TriangleBoxModel(1, 1, 1);
+    pModel->shader(pConstShader, true);
+    translation.translation(0, 0, -0.5);
+    pModel->transform(pModel->transform() * translation);
+    Models.push_back(pModel);
+
+    pModel = new TriangleBoxModel(1, 1, 1);
+    pModel->shader(pConstShader, true);
+    translation.translation(0, 0, 0.5);
+    pModel->transform(pModel->transform() * translation);
+    Models.push_back(pModel);
+
+    pModel = new TriangleBoxModel(1, 1, 1);
+    pModel->shader(pConstShader, true);
+    translation.translation(0, 0, 1.5);
+    pModel->transform(pModel->transform() * translation);
+    Models.push_back(pModel);
+
+    pModel = new TriangleBoxModel(1, 1, 1);
+    pModel->shader(pConstShader, true);
+    translation.translation(0, 0, 2.5);
+    pModel->transform(pModel->transform() * translation);
+    Models.push_back(pModel);
+
+    pModel = new TriangleBoxModel(1, 1, 1);
+    pModel->shader(pConstShader, true);
+    translation.translation(0, 0, 3.5);
+    pModel->transform(pModel->transform() * translation);
+    Models.push_back(pModel);
+
+    pModel = new TriangleBoxModel(1, 1, 1);
+    pModel->shader(pConstShader, true);
+    translation.translation(0, 0, 4.5);
+    pModel->transform(pModel->transform() * translation);
+    Models.push_back(pModel);
+
+   // pModel = new Model(ASSET_DIRECTORY "13463_Australian_Cattle_Dog_v3.obj");
+  //  pModel = new Model(ASSET_DIRECTORY "12248_Bird_v1_L2.obj");s
+    pPhongShader = new PhongShader();
+    player = new Player();
+    player->shader(pPhongShader, false);
+    player->loadModels(ASSET_DIRECTORY "12248_Bird_v1_L2.obj");
+    Models.push_back(player);
 
 
+  /*  chassisUrsprung = chassis->transform();
+    chassisRot.rotationY(fb.Y * dtime);
+    chassisMov.translation(fb.X * dtime * 2, 0, 0);
+
+    chassisMatrix = chassisUrsprung * chassisMov * chassisRot;
+    this->chassis->transform(chassisMatrix);
+    */
+
+    pModel = new TrianglePlaneModel(10, 5, 1,1);
+    pConstShader = new ConstantShader();
+    pConstShader->color(Color(1, 0, 0));
+    pModel->shader(pConstShader, true);
+    translation.translation(0, 0.5, 7.5);
+    pModel->transform(pModel->transform() * translation);
+    Models.push_back(pModel);
+
+    pModel = new TrianglePlaneModel(10, 5, 1, 1);
+    pConstShader = new ConstantShader();
+    pConstShader->color(Color(1, 0, 0));
+    pModel->shader(pConstShader, true);
+    translation.translation(0, 0.5, -7.5);
+    pModel->transform(pModel->transform() * translation);
+    Models.push_back(pModel);
+
+    /*chassisUrsprung = chassis->transform();
+    chassisRot.rotationY(fb.Y * dtime);
+    chassisMov.translation(fb.X * dtime * 2, 0, 0);
+
+    chassisMatrix = chassisUrsprung * chassisMov * chassisRot;
+    this->chassis->transform(chassisMatrix);*/
     /*
     // create LineGrid model with constant color shader
     pModel = new LinePlaneModel(10, 10, 10, 10);
@@ -67,19 +175,19 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin), fb(0), lr
 
     // Exercise 2
     /**/
-    pPhongShader = new PhongShader();
-    pTank = new Tank();
-    pTank->shader(pPhongShader, true);
-    pTank->loadModels(ASSET_DIRECTORY "tank_bottom.dae", ASSET_DIRECTORY "tank_top.dae");
-    Models.push_back( pTank );
-    
-    
-    // Exercise 3
-    /**/
-    Scene* pScene = new Scene();
-    pScene->shader(new PhongShader(), true);
-    pScene->addSceneFile(ASSET_DIRECTORY "scene.osh");
-    Models.push_back(pScene);
+    //pPhongShader = new PhongShader();
+    //pTank = new Tank();
+    //pTank->shader(pPhongShader, true);
+    //pTank->loadModels(ASSET_DIRECTORY "tank_bottom.dae", ASSET_DIRECTORY "tank_top.dae");
+    //Models.push_back( pTank );
+    //
+    //
+    //// Exercise 3
+    ///**/
+    //Scene* pScene = new Scene();
+    //pScene->shader(new PhongShader(), true);
+    //pScene->addSceneFile(ASSET_DIRECTORY "scene.osh");
+    //Models.push_back(pScene);
     
 }
 void Application::start()
@@ -102,7 +210,8 @@ float Application::toRadian(float degrees) {
 void Application::update(float dtime)
 {
 
-   
+
+
 
    /* // Exercise 1
     Matrix pbot, pb1, pb2, pb3, ptop, pt1;
@@ -129,7 +238,7 @@ void Application::update(float dtime)
    */
 
     // Exercise 2
-    Vector pos;
+   /* Vector pos;
 
     glfwGetCursorPos(pWindow,&mx,&my);
     Vector collision = Application::calc3DRay(mx, my, pos);
@@ -139,6 +248,14 @@ void Application::update(float dtime)
     fb = 0;
     lr = 0;
     pTank->update(dtime);
+    Cam.update();*/
+
+    keyPress(fb, lr);
+    player->steer(fb, lr);
+    fb = 0;
+    lr = 0;
+    player->update(dtime, Cam);
+
     Cam.update();
 }
 
