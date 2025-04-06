@@ -19,11 +19,13 @@
 #include "basemodel.h"
 #include "tank.h"
 #include "../CGVStudio/CGVStudio/Player.h"
+#include "TriangleBoxModel.h";
 
 class Application
 {
 public:
     typedef std::list<BaseModel*> ModelList;
+   
     Application(GLFWwindow* pWin);
     void start();
     void update(float);
@@ -35,6 +37,7 @@ protected:
     Vector calc3DRay( float x, float y, Vector& Pos);
     Camera Cam;
     ModelList Models;
+   
     GLFWwindow* pWindow;
     Tank* pTank;
     Model* pTankTop;

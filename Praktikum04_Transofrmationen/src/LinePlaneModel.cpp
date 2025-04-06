@@ -43,3 +43,13 @@ void LinePlaneModel::draw(const BaseCamera& Cam)
     
     VB.deactivate();
 }
+
+void LinePlaneModel::calculateBoundingBox() 
+{
+ 
+}
+
+AABB& LinePlaneModel::getBoundingBox()
+{
+    return BoundingBox;
+}

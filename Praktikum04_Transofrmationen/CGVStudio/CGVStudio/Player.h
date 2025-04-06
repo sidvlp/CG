@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include "../../src/Model.h"
+#include "../../src/LineBoxModel.h"
 
 class Player : public Model
 {
@@ -14,11 +15,23 @@ public:
 	void steer(float ForwardBackward, float LeftRight);
 	void update(float dtime, Camera& cam);
 	virtual void draw(const BaseCamera& Cam);
+	bool checkGroundCollision(const AABB& a, const AABB& b);
 	float toRadian(float degrees);
 	void resetPosition();
+	void drawBoundingBox(const BaseCamera& Cam);
+	void updateBoundingBox();
+	AABB& getBoundingBox();
+
 protected:
 	Model* player;
 	Vector direction;
 	Vector fb;
+	LineBoxModel* pBoundingBoxModel;
+	LineBoxModel* playerFootBoundingBox;
+	bool isGrounded;
+	bool isFalling;
+	float fallVelocity;
+	const float GRAVITY = -9.81f;
+
 };
 

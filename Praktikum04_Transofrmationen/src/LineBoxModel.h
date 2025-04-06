@@ -20,9 +20,11 @@ public:
     LineBoxModel( float Width=1, float Height=1, float Depth=1 );
     virtual ~LineBoxModel() {}
     virtual void draw(const BaseCamera& Cam);
+    void calculateBoundingBox();
+    AABB& getBoundingBox();
 protected:
     VertexBuffer VB;
-    
+    AABB BoundingBox;
 };
 
 #endif /* LineCubeModel_hpp */

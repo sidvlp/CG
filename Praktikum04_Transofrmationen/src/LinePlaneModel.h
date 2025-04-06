@@ -19,8 +19,11 @@ public:
     LinePlaneModel( float DimX, float DimZ, int NumSegX, int NumSegZ );
     virtual ~LinePlaneModel() {}
     virtual void draw(const BaseCamera& Cam);
+    void calculateBoundingBox();
+    AABB& getBoundingBox();
 protected:
     VertexBuffer VB;
+    AABB BoundingBox;
 };
 
 #endif /* LinePlaneModel_hpp */

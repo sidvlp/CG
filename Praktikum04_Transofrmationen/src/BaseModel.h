@@ -13,6 +13,7 @@
 #include "camera.h"
 #include "matrix.h"
 #include "baseshader.h"
+#include "Aabb.h"
 
 class BaseModel
 {
@@ -24,6 +25,8 @@ public:
     void transform( const Matrix& m) { Transform = m; }
     virtual void shader( BaseShader* shader, bool deleteOnDestruction=false );
     virtual BaseShader* shader() const { return pShader; }
+    virtual void calculateBoundingBox() = 0;
+    virtual AABB& getBoundingBox() = 0;
 protected:
     Matrix Transform;
     BaseShader* pShader;

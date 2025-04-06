@@ -12,6 +12,9 @@
 
 TriangleSphereModel::TriangleSphereModel( float Radius, int Stacks, int Slices )
 {
+
+    BoundingBox.Min = Vector(-Radius, -Radius, -Radius);
+    BoundingBox.Max = Vector(Radius, Radius, Radius);
     VB.begin();
     for( int i=0; i<Stacks; ++i)
         for( int j=0; j<Slices; ++j)
@@ -53,3 +56,15 @@ void TriangleSphereModel::draw(const BaseCamera& Cam)
     IB.deactivate();
     VB.deactivate();
 }
+
+void TriangleSphereModel::calculateBoundingBox() 
+{
+   
+}
+
+AABB& TriangleSphereModel::getBoundingBox()
+{
+    return BoundingBox;
+}
+
+

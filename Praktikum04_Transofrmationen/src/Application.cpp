@@ -39,6 +39,7 @@
 Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin), fb(0), lr(0), mx(0),my(0)
 {
     BaseModel* pModel;
+    TriangleBoxModel* boxModel;
     ConstantShader* pConstShader;
     PhongShader* pPhongShader;
     Matrix translation, rotationY, rotationX, rotationZ, ursprung;
@@ -54,60 +55,70 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin), fb(0), lr
     pModel->shader(pConstShader, true);
     translation.translation(0, 0, -4.5);
     pModel->transform(pModel->transform() * translation);
+    pModel->calculateBoundingBox();
     Models.push_back(pModel);
 
     pModel = new TriangleBoxModel(1, 1, 1);
     pModel->shader(pConstShader, true);
     translation.translation(0, 0, -3.5);
     pModel->transform(pModel->transform() * translation);
+    pModel->calculateBoundingBox();
     Models.push_back(pModel);
 
     pModel = new TriangleBoxModel(1, 1, 1);
     pModel->shader(pConstShader, true);
     translation.translation(0, 0, -2.5);
     pModel->transform(pModel->transform() * translation);
+    pModel->calculateBoundingBox();
     Models.push_back(pModel);
 
     pModel = new TriangleBoxModel(1, 1, 1);
     pModel->shader(pConstShader, true);
     translation.translation(0, 0, -1.5);
     pModel->transform(pModel->transform() * translation);
+    pModel->calculateBoundingBox();
     Models.push_back(pModel);
 
     pModel = new TriangleBoxModel(1, 1, 1);
     pModel->shader(pConstShader, true);
     translation.translation(0, 0, -0.5);
     pModel->transform(pModel->transform() * translation);
+    pModel->calculateBoundingBox();
     Models.push_back(pModel);
 
     pModel = new TriangleBoxModel(1, 1, 1);
     pModel->shader(pConstShader, true);
     translation.translation(0, 0, 0.5);
     pModel->transform(pModel->transform() * translation);
+    pModel->calculateBoundingBox();
     Models.push_back(pModel);
 
     pModel = new TriangleBoxModel(1, 1, 1);
     pModel->shader(pConstShader, true);
     translation.translation(0, 0, 1.5);
     pModel->transform(pModel->transform() * translation);
+    pModel->calculateBoundingBox();
     Models.push_back(pModel);
 
     pModel = new TriangleBoxModel(1, 1, 1);
     pModel->shader(pConstShader, true);
     translation.translation(0, 0, 2.5);
     pModel->transform(pModel->transform() * translation);
+    pModel->calculateBoundingBox();
     Models.push_back(pModel);
 
     pModel = new TriangleBoxModel(1, 1, 1);
     pModel->shader(pConstShader, true);
     translation.translation(0, 0, 3.5);
     pModel->transform(pModel->transform() * translation);
+    pModel->calculateBoundingBox();
     Models.push_back(pModel);
 
     pModel = new TriangleBoxModel(1, 1, 1);
     pModel->shader(pConstShader, true);
     translation.translation(0, 0, 4.5);
     pModel->transform(pModel->transform() * translation);
+    pModel->calculateBoundingBox();
     Models.push_back(pModel);
 
    // pModel = new Model(ASSET_DIRECTORY "13463_Australian_Cattle_Dog_v3.obj");
@@ -118,7 +129,7 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin), fb(0), lr
     player->loadModels(ASSET_DIRECTORY "12248_Bird_v1_L2.obj");
     Models.push_back(player);
 
-
+    
   /*  chassisUrsprung = chassis->transform();
     chassisRot.rotationY(fb.Y * dtime);
     chassisMov.translation(fb.X * dtime * 2, 0, 0);
@@ -133,14 +144,16 @@ Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin), fb(0), lr
     pModel->shader(pConstShader, true);
     translation.translation(0, 0.5, 7.5);
     pModel->transform(pModel->transform() * translation);
+    pModel->calculateBoundingBox();
     Models.push_back(pModel);
-
+   
     pModel = new TrianglePlaneModel(10, 5, 1, 1);
     pConstShader = new ConstantShader();
     pConstShader->color(Color(1, 0, 0));
     pModel->shader(pConstShader, true);
     translation.translation(0, 0.5, -7.5);
     pModel->transform(pModel->transform() * translation);
+    pModel->calculateBoundingBox();
     Models.push_back(pModel);
 
     /*chassisUrsprung = chassis->transform();
@@ -250,6 +263,19 @@ void Application::update(float dtime)
     pTank->update(dtime);
     Cam.update();*/
 
+    for (ModelList::iterator it = Models.begin(); it != Models.end(); ++it)
+    {
+        BaseModel* pModel = *it;
+       
+        if (pModel != player && player->checkGroundCollision(player->boundingBox(), pModel->getBoundingBox())) {
+            std::cout << "Kollision mit einem Objekt" << std::endl;
+        }
+        else {
+            std::cout << "Keine Kolliosnt" << std::endl;
+        }
+  
+    }
+
     keyPress(fb, lr);
     player->steer(fb, lr);
     fb = 0;
@@ -336,6 +362,7 @@ void Application::draw()
     for( ModelList::iterator it = Models.begin(); it != Models.end(); ++it )
     {
         (*it)->draw(Cam);
+        
     }
     
     // 3. check once per frame for opengl errors

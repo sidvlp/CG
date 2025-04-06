@@ -1,3 +1,5 @@
-﻿  Player.cpp
-C:\Users\sidwa\OneDrive - Hochschule Osnabrück\CGFinals\CG\Praktikum04_Transofrmationen\CGVStudio\CGVStudio\Player.cpp(32,31): warning C4244: "return": Konvertierung von "double" in "float", möglicher Datenverlust
+﻿  Application.cpp
+C:\Users\sidwa\OneDrive - Hochschule Osnabrück\CGFinals\CG\Praktikum04_Transofrmationen\src\Application.h(22,10): warning C4067: Unerwartete Token nach Präprozessordirektive - Zeilenvorschub erwartet.
+C:\Users\sidwa\OneDrive - Hochschule Osnabrück\CGFinals\CG\Praktikum04_Transofrmationen\src\Application.cpp(42,23): warning C4101: "boxModel": Unreferenzierte lokale Variable
+C:\Users\sidwa\OneDrive - Hochschule Osnabrück\CGFinals\CG\Praktikum04_Transofrmationen\src\Application.cpp(218,35): warning C4244: "return": Konvertierung von "double" in "float", möglicher Datenverlust
   CGVStudio.vcxproj -> C:\Users\sidwa\OneDrive - Hochschule Osnabrück\CGFinals\CG\Praktikum04_Transofrmationen\CGVStudio\Debug\Praktikum04_Transofrmationen.exe

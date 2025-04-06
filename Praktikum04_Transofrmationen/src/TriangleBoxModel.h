@@ -23,9 +23,14 @@ public:
     virtual ~TriangleBoxModel() {}
     void makePlane(const Vector&, const Vector&, const Vector&, const Vector&, const Vector&);
     virtual void draw(const BaseCamera& Cam);
+    void boundingBox() ;
+    void calculateBoundingBox();
+    AABB& getBoundingBox();
 protected:
     VertexBuffer VB;
     IndexBuffer IB;
+    
+    AABB BoundingBox;
 };
 
 
