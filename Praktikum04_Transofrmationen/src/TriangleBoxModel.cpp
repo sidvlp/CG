@@ -15,6 +15,9 @@ TriangleBoxModel::TriangleBoxModel(float Width, float Height, float Depth)
 	float y = Height / 2;
 	float z = Depth / 2;
 
+
+	BoundingBox.Min = Vector(-x, -y, -z);
+	BoundingBox.Max = Vector(x, y, z);
 	/*  
 	  f---g		//abcd n(0,0,1) //bfgc n(0,1,0)	
 	 /|  /|		
@@ -80,7 +83,8 @@ TriangleBoxModel::TriangleBoxModel(float Width, float Height, float Depth)
 	}
 
 	IB.end();
-
+	
+	
 }
 
 
@@ -109,4 +113,102 @@ void TriangleBoxModel::draw(const BaseCamera& Cam)
 
 	IB.deactivate();
 	VB.deactivate();
+	
 }
+
+void TriangleBoxModel::boundingBox()  {
+	//// Ursprüngliche Eckpunkte (lokal)
+	//Vector corners[8] = {
+	//	Vector(-0.5f, -0.5f,  0.5f),  // a
+	//	Vector(-0.5f,  0.5f,  0.5f),  // b
+	//	Vector(0.5f,  0.5f,  0.5f),  // c
+	//	Vector(0.5f, -0.5f,  0.5f),  // d
+	//	Vector(-0.5f, -0.5f, -0.5f),  // e
+	//	Vector(-0.5f,  0.5f, -0.5f),  // f
+	//	Vector(0.5f,  0.5f, -0.5f),  // g
+	//	Vector(0.5f, -0.5f, -0.5f)   // h
+	//};
+
+	//// Transformationsmatrix
+	//const Matrix& m = this->transform();
+
+	//// Alle Eckpunkte transformieren
+	//
+	//for (int i = 0; i < 8; i++) {
+	//	corners[i] = m * corners[i];
+	//}
+
+	//// Min/Max finden
+	//Vector newMin = corners[0];
+	//Vector newMax = corners[0];
+	//for (int i = 1; i < 8; i++) {
+	//	newMin.X = std::min(newMin.X, corners[i].X);
+	//	newMin.Y = std::min(newMin.Y, corners[i].Y);
+	//	newMin.Z = std::min(newMin.Z, corners[i].Z);
+
+	//	newMax.X = std::max(newMax.X, corners[i].X);
+	//	newMax.Y = std::max(newMax.Y, corners[i].Y);
+	//	newMax.Z = std::max(newMax.Z, corners[i].Z);
+	//}
+
+	//
+	//BoundingBox.Min = Vector(newMin.X, newMin.Y, newMin.Z);
+	//BoundingBox.Max = Vector(newMax.X, newMax.Y, newMax.Z);
+	//std::cout << "BoundingBox Min: " << newMin.X << ", " << newMin.Y << ", " << newMin.Z << std::endl;
+	//std::cout << "BoundingBox Max: " << newMax.X << ", " << newMax.Y << ", " << newMax.Z << std::endl;
+	//std::cout << "---- " << std::endl;
+}
+
+void TriangleBoxModel::calculateBoundingBox() 
+{
+//	BoundingBox = boundingBox();
+	
+	Vector corners[8] = {
+		Vector(-0.5f, -0.5f,  0.5f),  // a
+		Vector(-0.5f,  0.5f,  0.5f),  // b
+		Vector(0.5f,  0.5f,  0.5f),  // c
+		Vector(0.5f, -0.5f,  0.5f),  // d
+		Vector(-0.5f, -0.5f, -0.5f),  // e
+		Vector(-0.5f,  0.5f, -0.5f),  // f
+		Vector(0.5f,  0.5f, -0.5f),  // g
+		Vector(0.5f, -0.5f, -0.5f)   // h
+	};
+
+	// Transformationsmatrix
+	const Matrix& m = this->transform();
+
+	// Alle Eckpunkte transformieren
+
+	for (int i = 0; i < 8; i++) {
+		corners[i] = m * corners[i];
+	}
+
+	// Min/Max finden
+	Vector newMin = corners[0];
+	Vector newMax = corners[0];
+	for (int i = 1; i < 8; i++) {
+		newMin.X = std::min(newMin.X, corners[i].X);
+		newMin.Y = std::min(newMin.Y, corners[i].Y);
+		newMin.Z = std::min(newMin.Z, corners[i].Z);
+
+		newMax.X = std::max(newMax.X, corners[i].X);
+		newMax.Y = std::max(newMax.Y, corners[i].Y);
+		newMax.Z = std::max(newMax.Z, corners[i].Z);
+	}
+
+
+	BoundingBox.Min = Vector(newMin.X, newMin.Y, newMin.Z);
+	BoundingBox.Max = Vector(newMax.X, newMax.Y, newMax.Z);
+	/*std::cout << "BoundingBox Min: " << newMin.X << ", " << newMin.Y << ", " << newMin.Z << std::endl;
+	std::cout << "BoundingBox Max: " << newMax.X << ", " << newMax.Y << ", " << newMax.Z << std::endl;
+	std::cout << "---- " << std::endl;*/
+}
+
+AABB& TriangleBoxModel::getBoundingBox()
+{
+	return BoundingBox;
+}
+
+
+
+

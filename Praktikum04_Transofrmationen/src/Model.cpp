@@ -310,6 +310,22 @@ void Model::draw(const BaseCamera& Cam)
     }
 }
 
+const void Model::setBoundingBox(Vector newMin, Vector newMax)
+{
+    this->BoundingBox.Max = newMax;
+    this->BoundingBox.Min = newMin;
+    return void();
+}
+void Model::calculateBoundingBox() 
+{
+    
+}
+
+AABB& Model::getBoundingBox()
+{
+    return BoundingBox;
+}
+
 Matrix Model::convert(const aiMatrix4x4& m)
 {
     return Matrix(m.a1, m.a2, m.a3, m.a4,

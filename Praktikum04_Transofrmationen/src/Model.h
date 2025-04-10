@@ -30,7 +30,9 @@ public:
     bool load(const char* ModelFile, bool FitSize=false);
     virtual void draw(const BaseCamera& Cam);
     const AABB& boundingBox() const { return BoundingBox; }
-    
+    const void setBoundingBox(Vector newMin, Vector newMax);
+    void calculateBoundingBox();
+    AABB& getBoundingBox();
 protected: // protected types
     struct Mesh
     {

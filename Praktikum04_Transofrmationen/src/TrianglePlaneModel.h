@@ -23,9 +23,13 @@ public:
     TrianglePlaneModel( float DimX, float DimZ, int NumSegX, int NumSegZ );
     virtual ~TrianglePlaneModel() {}
     virtual void draw(const BaseCamera& Cam);
+    
+    void calculateBoundingBox();
+    AABB& getBoundingBox();
 protected:
     VertexBuffer VB;
     IndexBuffer IB;
+    AABB BoundingBox;
 };
 
 #endif /* TrianglePlaneModel_hpp */

@@ -10,10 +10,13 @@
 
 LineBoxModel::LineBoxModel( float Width, float Height, float Depth )
 {
-
+    
     float x = Width / 2.0f;
     float y = Height / 2.0f;
     float z = Depth / 2.0f;
+
+    BoundingBox.Min = Vector(-x, -y, -z);
+    BoundingBox.Max = Vector(x, y, z);
     
     VB.begin();
 
@@ -48,4 +51,13 @@ void LineBoxModel::draw(const BaseCamera& Cam)
     glDrawArrays(GL_LINES, 0, VB.vertexCount());
 
     VB.deactivate();
+}
+void LineBoxModel::calculateBoundingBox()
+{
+ 
+}
+
+AABB& LineBoxModel::getBoundingBox()
+{
+    return BoundingBox;
 }

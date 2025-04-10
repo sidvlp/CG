@@ -20,9 +20,12 @@ public:
     TriangleSphereModel( float Radius, int Stacks=18, int Slices=36 );
     virtual ~TriangleSphereModel() {}
     virtual void draw(const BaseCamera& Cam);
+    void calculateBoundingBox();
+    AABB& getBoundingBox();
 protected:
     VertexBuffer VB;
     IndexBuffer IB;
+    AABB BoundingBox;
 };
 
 
